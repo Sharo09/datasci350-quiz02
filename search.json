@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "commands.html",
+    "href": "commands.html",
+    "title": "Box Office Numbers",
+    "section": "",
+    "text": "touch bond.qmd"
+  },
+  {
+    "objectID": "bond.html",
+    "href": "bond.html",
+    "title": "The Bond Films",
+    "section": "",
+    "text": "#| echo: false\nimport pandas as pd import matplotlib.pyplot as plt\nfilms = pd.read_csv(“films.csv”) bond = films[films[“franchise”] == “James Bond”].sort_values(“year”)\nfirst_year = int(bond[“year”].min()) last_year = int(bond[“year”].max()) #| echo: true #| label: fig-bond-revenue #| fig-cap: “James Bond Box Office Revenue Over Time”\nplt.figure(figsize=(8, 5)) plt.plot(bond[“year”], bond[“revenue_musd”], marker=“o”, linestyle=“-”, color=“darkblue”) plt.xlabel(“Release Year”) plt.ylabel(“Worldwide Revenue ($ Millions)”) plt.title(“James Bond Revenue Over Time”) plt.grid(True, linestyle=“–”, alpha=0.5) plt.show()"
+  },
+  {
+    "objectID": "runtime-rating.html",
+    "href": "runtime-rating.html",
+    "title": "Runtime and Ratings",
+    "section": "",
+    "text": "We analyze whether longer runtime correlates with higher audience ratings in fig-runtime-rating. #| echo: true #| label: fig-runtime-rating #| fig-cap: “IMDb Rating vs. Film Runtime (Minutes)”\nimport pandas as pd import matplotlib.pyplot as plt\nfilms = pd.read_csv(“films.csv”)\nplt.figure(figsize=(8,5)) plt.scatter(films[“runtime_min”], films[“imdb_rating”], alpha=0.7, color=“coral”, edgecolors=“black”) plt.xlabel(“Runtime (Minutes)”) plt.ylabel(“IMDb Rating (0 - 10)”) plt.title(“Runtime vs IMDb Rating”)\nplt.grid(True, linestyle=“–”, alpha=0.5) plt.show() #| echo: true films[“decade”] = films[“year”]//10*10 films.groupby(“decade”)[“imdb_rating”].mean().round(2)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Box Office Numbers",
+    "section": "",
+    "text": "This is Box Office Numbers. It was created for the DATASCI350 course quiz. The dataset has 104 well-known films from 1980 to 2025, with approximate budgets, worldwide revenues, runtimes, and ratings. Three detailed analysis pages: - Budget and Revenue - Runtime and Ratings The Bond Films — I used Gemini for assistant during the quiz."
+  },
+  {
+    "objectID": "budget-revenue.html",
+    "href": "budget-revenue.html",
+    "title": "Budget and Revenue",
+    "section": "",
+    "text": "This page analyzes the relationship between film production budgets and worldwide gross revenue. #| echo: true #| label: fig-budget-rev #| fig-cap: “Worldwide Box Office Revenue vs. Production Budget” import pandas as pd import matplotlib.pyplot as plt films = pd.read_csv(“films.csv”) plt.figure(figsize=(8, 5)) plt.scatter(films[“budget_musd”], films[“revenue_musd”], alpha=0.7, color=“skyblue”, edgecolors=“black”) plt.xlabel(“Production Budget ($ Millions)”) plt.ylabel(“Worldwide Revenue ($ Millions)”) plt.title(“Budget vs. Revenue”) plt.grid(True, linestyle=“–”, alpha=0.5) plt.show()"
+  }
+]
