@@ -46,6 +46,31 @@ heredoc> [The Bond Films](bond.qmd)
 heredoc> ---
 heredoc> I used Gemini for assistant during the quiz.
 heredoc> EOF                              
+t << 'EOF' > budget-revenue.qmd
+heredoc> ---
+heredoc> title: "Budget and Revenue"
+heredoc> ---
+heredoc> This page analyzes the relationship between f
+ilm production budgets and worldwide gross revenue. 
+heredoc> ```{python}
+heredoc> #| echo: true
+heredoc> #| label: fig-budget-rev
+heredoc> #| fig-cap: "Worldwide Box Office Revenue vs.
+ Production Budget"  
+heredoc> import pandas as pd
+heredoc> import matplotlib.pyplot as plt
+heredoc> films = pd.read_csv("films.csv")
+heredoc> plt.figure(figsize=(8, 5))
+heredoc> plt.scatter(films["budget_musd"], films["reve
+nue_musd"], alpha=0.7, color="skyblue", edgecolors="bl
+ack")
+heredoc> plt.xlabel("Production Budget ($ Millions)")
+heredoc> plt.ylabel("Worldwide Revenue ($ Millions)")
+heredoc> plt.title("Budget vs. Revenue")
+heredoc> plt.grid(True, linestyle="--", alpha=0.5)
+heredoc> plt.show()
+heredoc> EOF
+quarto render
 cat << EOF > runtime-rat
 ing.qmd
 heredoc> ---
@@ -72,9 +97,6 @@ heredoc>
 heredoc> plt.grid(True, linestyle="--", alpha=0.5)
 heredoc> plt.show()
 heredoc> EOF
-cat << EOF >> runtime-ra
-ting.qmd
-heredoc> #| echo: true
-heredoc> films["decade"] = films["year"]//10*10
-heredoc> films.groupby("decade")["imdb_rating"].mean().round(2)
-heredoc> EOF
+git add . 
+git commit -m "Add site pages and freeze"
+quarto publish gh-pages
