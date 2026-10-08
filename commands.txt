@@ -1,0 +1,80 @@
+git clone https://github.com/Sharo09/datasci350-quiz02
+cd datasci350-quiz02
+touch commands.txt
+quarto create project website .
+echo "/_site/" >> .gitignore
+echo "_pycache_/" >> .gitignore 
+code _quarto.yml
+rm about.qmd
+cat << 'EOF' > _quarto.yml
+project:
+  type: website
+
+website:
+  title: Box Office Numbers
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: budget-revenue.qmd
+        text: Budget and Revenue
+      - href: runtime-rating.qmd
+        text: Runtime and Ratings
+      - href: bond.qmd
+        text: The Bond Films
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+
+execute:
+  freeze: auto
+EOF
+ca
+t << 'EOF' > index.qmd
+heredoc> ---
+heredoc> title: Box Office Numbers
+heredoc> ---
+heredoc> This is Box Office Numbers. It was created fo
+r the DATASCI350 course quiz. 
+heredoc> The dataset has 104 well-known films from 1980 to 2025, with approximate budgets, worldwide revenues, runtimes, and ratings.
+heredoc> Three detailed analysis pages:
+heredoc> - [Budget and Revenue](budget-revenue.qmd)
+heredoc> - [Runtime and Ratings](runtime-rating.qmd)
+heredoc> [The Bond Films](bond.qmd)
+heredoc> ---
+heredoc> I used Gemini for assistant during the quiz.
+heredoc> EOF                              
+cat << EOF > runtime-rat
+ing.qmd
+heredoc> ---
+heredoc> title: "Runtime and Ratings"
+heredoc> ---
+heredoc> We analyze whether longer runtime correlates with higher audience rat
+ings in fig-runtime-rating.
+heredoc> ```{python}
+heredoc> #| echo: true
+heredoc> #| label: fig-runtime-rating
+heredoc> #| fig-cap: "IMDb Rating vs. Film Runtime (Minutes)"
+heredoc>      
+heredoc> import pandas as pd
+heredoc> import matplotlib.pyplot as plt
+heredoc> 
+heredoc> films = pd.read_csv("films.csv")
+heredoc> 
+heredoc> plt.figure(figsize=(8,5))
+heredoc> plt.scatter(films["runtime_min"], films["imdb_rating"], alpha=0.7, color="coral", edgecolors="black")
+heredoc> plt.xlabel("Runtime (Minutes)")
+heredoc> plt.ylabel("IMDb Rating (0 - 10)")
+heredoc> plt.title("Runtime vs IMDb Rating")
+heredoc> 
+heredoc> plt.grid(True, linestyle="--", alpha=0.5)
+heredoc> plt.show()
+heredoc> EOF
+cat << EOF >> runtime-ra
+ting.qmd
+heredoc> #| echo: true
+heredoc> films["decade"] = films["year"]//10*10
+heredoc> films.groupby("decade")["imdb_rating"].mean().round(2)
+heredoc> EOF

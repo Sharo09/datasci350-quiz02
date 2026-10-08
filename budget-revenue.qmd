@@ -1,0 +1,18 @@
+---
+title: "Budget and Revenue"
+---
+This page analyzes the relationship between film production budgets and worldwide gross revenue. 
+```{python}
+#| echo: true
+#| label: fig-budget-rev
+#| fig-cap: "Worldwide Box Office Revenue vs. Production Budget"
+import pandas as pd
+import matplotlib.pyplot as plt
+films = pd.read_csv("films.csv")
+plt.figure(figsize=(8, 5))
+plt.scatter(films["budget_musd"], films["revenue_musd"], alpha=0.7, color="skyblue", edgecolors="black")
+plt.xlabel("Production Budget ($ Millions)")
+plt.ylabel("Worldwide Revenue ($ Millions)")
+plt.title("Budget vs. Revenue")
+plt.grid(True, linestyle="--", alpha=0.5)
+plt.show()

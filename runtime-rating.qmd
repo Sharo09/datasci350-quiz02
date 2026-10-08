@@ -1,0 +1,25 @@
+---
+title: "Runtime and Ratings"
+---
+We analyze whether longer runtime correlates with higher audience ratings in fig-runtime-rating.
+```{python}
+#| echo: true
+#| label: fig-runtime-rating
+#| fig-cap: "IMDb Rating vs. Film Runtime (Minutes)"
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+films = pd.read_csv("films.csv")
+
+plt.figure(figsize=(8,5))
+plt.scatter(films["runtime_min"], films["imdb_rating"], alpha=0.7, color="coral", edgecolors="black")
+plt.xlabel("Runtime (Minutes)")
+plt.ylabel("IMDb Rating (0 - 10)")
+plt.title("Runtime vs IMDb Rating")
+
+plt.grid(True, linestyle="--", alpha=0.5)
+plt.show()
+#| echo: true
+films["decade"] = films["year"]//10*10
+films.groupby("decade")["imdb_rating"].mean().round(2)

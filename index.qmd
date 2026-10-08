@@ -1,0 +1,11 @@
+---
+title: "Box Office Numbers"
+---
+This is Box Office Numbers. It was created for the DATASCI350 course quiz.
+The dataset has 104 well-known films from 1980 to 2025, with approximate budgets, worldwide revenues, runtimes, and ratings. 
+Three detailed analysis pages:
+- [Budget and Revenue](budget-revenue.qmd)
+- [Runtime and Ratings](runtime-rating.qmd)
+[The Bond Films](bond.qmd)
+---
+I used Gemini for assistant during the quiz.

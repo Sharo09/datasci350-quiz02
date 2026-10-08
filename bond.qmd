@@ -1,0 +1,26 @@
+---
+title: "The Bond Films"
+---
+
+```{python}
+#| echo: false
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+films = pd.read_csv("films.csv")
+bond = films[films["franchise"] == "James Bond"].sort_values("year")
+
+first_year = int(bond["year"].min())
+last_year = int(bond["year"].max())
+#| echo: true
+#| label: fig-bond-revenue
+#| fig-cap: "James Bond Box Office Revenue Over Time"
+
+plt.figure(figsize=(8, 5))
+plt.plot(bond["year"], bond["revenue_musd"], marker="o", linestyle="-", color="darkblue")
+plt.xlabel("Release Year")
+plt.ylabel("Worldwide Revenue ($ Millions)")
+plt.title("James Bond Revenue Over Time")
+plt.grid(True, linestyle="--", alpha=0.5)
+plt.show()
